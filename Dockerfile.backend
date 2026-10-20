@@ -21,9 +21,13 @@ RUN mkdir -p /app/backend/temp_repos
 # Copy app code
 COPY backend /app/backend
 
+# Copy startup script
+COPY backend/start.sh /app/start.sh
+RUN chmod +x /app/start.sh
+
 # Set python path to allow importing backend.app.main
 ENV PYTHONPATH=/app
 
 EXPOSE 8000
 
-CMD ["uvicorn", "backend.app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["/app/start.sh"]

@@ -36,7 +36,7 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    command: uvicorn backend.app.main:app --host 0.0.0.0 --port 8000 --reload --reload-dir /app/backend/app
+    command: sh -c "cd /app && PYTHONPATH=/app alembic -c backend/alembic.ini upgrade head && uvicorn backend.app.main:app --host 0.0.0.0 --port 8000 --reload --reload-dir /app/backend/app"
 
 volumes:
   pgdata:

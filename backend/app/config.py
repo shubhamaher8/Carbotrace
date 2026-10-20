@@ -37,7 +37,9 @@ class Settings(BaseSettings):
     TEMP_CLONE_DIR: str = str(Path(__file__).parent.parent / "temp_repos")
 
     # API configuration
+    # CORS / Frontend
     API_V1_STR: str = "/api"
+    FRONTEND_URL: Optional[str] = "http://localhost:5173"
 
     model_config = SettingsConfigDict(
         env_file=(".env.local", ".env"),
