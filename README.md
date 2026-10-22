@@ -112,7 +112,7 @@ Copy `.env.example` to `.env` in the project root:
 
 | Variable | Default | Description |
 |---|---|---|
-| `DATABASE_URL` | `postgresql+asyncpg://postgres:postgres@localhost:5432/carbotrace` | Async database connection string |
+| `DATABASE_URL` | `postgresql+asyncpg://postgres:postgres@localhost:15432/carbotrace` | Async database connection string |
 | `OLLAMA_HOST` | `http://localhost:11434` | Ollama service endpoint |
 | `OLLAMA_MODEL` | `qwen2.5-coder:1.5b` | LLM model identifier |
 | `GITHUB_TOKEN` | *(Optional)* | Personal access token for higher GitHub API rate limits |
