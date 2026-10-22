@@ -214,7 +214,6 @@ async def _generate_from_ollama_local(
 
                 if len(recs) > 0:
                     tagged = _tag_source(recs, "ollama_local")
-                    _llm_cache[input_hash] = tagged
                     logger.info(
                         f"Successfully generated {len(tagged)} recommendations from local Ollama LLM "
                         f"({settings.OLLAMA_LOCAL_MODEL})."
@@ -280,7 +279,6 @@ async def _generate_from_ollama_cloud(
 
             if len(recs) > 0:
                 tagged = _tag_source(recs, "ollama_cloud")
-                _llm_cache[input_hash] = tagged
                 logger.info(f"Successfully generated {len(tagged)} recommendations from Ollama Cloud.")
                 return tagged
 
@@ -314,11 +312,6 @@ async def generate_recommendations(analysis_results: Dict[str, Any]) -> List[Dic
         "infra_carbon": analysis_results.get("infra_carbon")
     }, sort_keys=True)
     input_hash = hashlib.sha256(input_str.encode("utf-8")).hexdigest()
-
-    # Return cached LLM result if available (static results are never cached here).
-    if input_hash in _llm_cache:
-        logger.debug(f"Returning cached LLM recommendations for hash {input_hash[:12]}...")
-        return _llm_cache[input_hash]
 
     logger.info(f"Generating LLM recommendations using model {settings.OLLAMA_LOCAL_MODEL}...")
 
